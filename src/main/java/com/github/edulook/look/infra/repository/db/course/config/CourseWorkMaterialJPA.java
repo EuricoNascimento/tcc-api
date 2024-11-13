@@ -12,14 +12,14 @@ import java.util.Optional;
 @Repository
 public interface CourseWorkMaterialJPA extends JpaRepository<WorkMaterial, String> {
 
-    @Query("SELECT wm FROM WorkMaterial wm WHERE wm.courseId = :courseId AND wm.access = :access")
-    List<WorkMaterial> findAllByCourseAndAccess(Course courseId, String access);
+    @Query("SELECT wm FROM WorkMaterial wm JOIN wm.access a WHERE wm.courseId = :courseId AND a.access = :access")
+    List<WorkMaterial> findAllByCourseAndAccess(String courseId, String access);
 
     @Query("SELECT wm FROM WorkMaterial wm WHERE wm.courseId = :courseId")
-    List<WorkMaterial> findAllByCourse(Course courseId);
+    List<WorkMaterial> findAllByCourse(String courseId);
 
     @Query("SELECT wm FROM WorkMaterial wm WHERE wm.courseId = :courseId AND wm.id = :materialId")
-    Optional<WorkMaterial> findByCourseAndMaterialId(Course courseId, String materialId);
+    Optional<WorkMaterial> findByCourseAndMaterialId(String courseId, String materialId);
 
 
 }

@@ -3,6 +3,8 @@ package com.github.edulook.look.core.model;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.util.List;
+
 @Entity
 @Table(name = "user_course_access")
 @Getter
@@ -22,4 +24,7 @@ public class UserCourseAccess {
     @ManyToOne
     @JoinColumn(name = "course_id")
     private Course course;
+
+    @ManyToMany(mappedBy = "access")
+    private List<WorkMaterial> workMaterials;
 }

@@ -23,16 +23,16 @@ public class GetCourseWorkMaterialDB implements GetCourseWorkMaterial {
 
     @Override
     public List<WorkMaterial> listAllWorkMaterial(Course course, String access) {
-        return repository.findAllByCourseAndAccess(course, access);
+        return repository.findAllByCourseAndAccess(course.getId(), access);
     }
 
     @Override
     public List<WorkMaterial> listAllWorkMaterial(Course course) {
-        return repository.findAllByCourse(course);
+        return repository.findAllByCourse(course.getId());
     }
 
     @Override
     public Optional<WorkMaterial> findOneMaterial(Course course, String materialId) {
-        return repository.findByCourseAndMaterialId(course, materialId);
+        return repository.findByCourseAndMaterialId(course.getId(), materialId);
     }
 }

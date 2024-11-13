@@ -32,7 +32,7 @@ public class Course {
     private String updated;
     @OneToMany(mappedBy = "course", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Teacher> teachers;
-    @OneToMany(mappedBy = "course", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "course", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Student> students;
 
     public Course(String courseId, String id, String description, String title, String createdAt) {}

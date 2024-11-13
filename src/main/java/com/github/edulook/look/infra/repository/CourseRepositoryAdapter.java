@@ -29,7 +29,6 @@ public class CourseRepositoryAdapter implements CourseRepository {
         this.publisher = publisher;
     }
 
-
     @Override
     public List<Course> findCoursesByStudentId(String studentId) {
         var courses = db.findCoursesByStudentId(studentId);

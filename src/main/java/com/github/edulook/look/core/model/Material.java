@@ -3,10 +3,7 @@ package com.github.edulook.look.core.model;
 import com.github.edulook.look.core.data.Option;
 import com.github.edulook.look.core.data.Typename;
 import jakarta.persistence.*;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import java.util.Objects;
 import java.util.Optional;
@@ -17,6 +14,7 @@ import java.util.function.Consumer;
 @Getter
 @Setter
 @NoArgsConstructor
+@AllArgsConstructor
 public class Material {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)

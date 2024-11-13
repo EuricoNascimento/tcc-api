@@ -1,6 +1,5 @@
 package com.github.edulook.look.core.model;
 
-import com.github.edulook.look.core.data.Typename;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -28,9 +27,13 @@ public class WorkMaterial {
     private String createdAt;
     @OneToMany(mappedBy = "workMaterial", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Material> materials;
-    @ManyToOne
-    @JoinColumn(name = "access", referencedColumnName = "access")
-    private UserCourseAccess access;
+    @ManyToMany
+    @JoinTable(
+            name = "work_material_access",
+            joinColumns = @JoinColumn(name = "work_material_id"),
+            inverseJoinColumns = @JoinColumn(name = "access_id")
+    )
+    private List<UserCourseAccess> access;
 
     public void forEachMaterial(Consumer<Material> consumer) {
         if (Objects.isNull(materials))
