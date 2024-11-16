@@ -1,17 +1,9 @@
 package com.github.edulook.look.endpoint.internal.mapper.course.impl;
 
-import com.github.edulook.look.core.model.Course;
-import com.github.edulook.look.core.model.WorkMaterial;
-import com.github.edulook.look.core.model.Announcement;
-import com.github.edulook.look.core.model.Material;
-import com.github.edulook.look.core.model.Teacher;
+import com.github.edulook.look.core.model.*;
 import com.github.edulook.look.endpoint.internal.mapper.course.CourseAndDTOMapper;
-import com.github.edulook.look.endpoint.io.course.CourseDTO;
-import com.github.edulook.look.endpoint.io.course.AnnouncementDTO;
+import com.github.edulook.look.endpoint.io.course.*;
 import com.github.edulook.look.endpoint.io.teacher.TeacherDTO;
-import com.github.edulook.look.endpoint.io.course.MaterialDTO;
-import com.github.edulook.look.endpoint.io.course.ContentMaterialDTO;
-import com.github.edulook.look.endpoint.io.course.SimpleMaterialDTO;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -95,7 +87,30 @@ public class CourseAndDTOMapperImpl implements CourseAndDTOMapper {
     }
 
     @Override
+    public PageDTO toDTO(Page source) {
+        return PageDTO.builder()
+                .content(source.getContent())
+                .page(source.getPage())
+                .build();
+    }
+
+    @Override
+    public ContentPageDTO toDTO(PageContent source) {
+        var pages = source.getPages()
+                .stream()
+                .map(this::toDTO)
+                .toList();
+
+        return ContentPageDTO.builder()
+                .size(source.getSize())
+                .pages(pages)
+                .build();
+    }
+
+    @Override
     public ContentMaterialDTO toDTO(Material source) {
+        var pageContent = source.getContent().isEmpty() ? null : this.toDTO(source.getContent().get());
+
         return ContentMaterialDTO.builder()
             .description(source.getDescription())
             .id(source.getId())
@@ -104,6 +119,7 @@ public class CourseAndDTOMapperImpl implements CourseAndDTOMapper {
             .preview(source.getPreviewLink())
             .option(source.getOption())
             .type(source.getType())
+            .content(Optional.ofNullable(pageContent))
             .build();
     }
 

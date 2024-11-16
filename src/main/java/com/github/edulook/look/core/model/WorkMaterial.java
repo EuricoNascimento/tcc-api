@@ -25,7 +25,7 @@ public class WorkMaterial {
     private String description;
     @Column
     private String createdAt;
-    @OneToMany(mappedBy = "workMaterial", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "workMaterial", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
     private List<Material> materials;
     @ManyToMany
     @JoinTable(

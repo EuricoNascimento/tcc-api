@@ -17,6 +17,11 @@ public class UpsetCourseWorkMaterialDB implements UpsetCourseWorkMaterial {
 
     @Override
     public WorkMaterial upsetCourseMaterial(WorkMaterial materialSaved) {
+        if (materialSaved.getMaterials() != null) {
+            materialSaved.getMaterials().forEach(it -> {
+                it.setWorkMaterial(materialSaved);
+            });
+        }
         return repository.save(materialSaved);
     }
 }

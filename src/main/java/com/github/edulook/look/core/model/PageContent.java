@@ -3,8 +3,10 @@ package com.github.edulook.look.core.model;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.rmi.server.UID;
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 
 @Entity
 @Builder
@@ -12,10 +14,10 @@ import java.util.Optional;
 @NoArgsConstructor
 public class PageContent {
     @Id
-    private Long id;
+    private UUID id;
     private Integer size;
 
-    @OneToMany(mappedBy = "pageContent")
+    @OneToMany(mappedBy = "pageContent", cascade = CascadeType.ALL)
     private List<Page> pages;
 
     public static PageContent fromCollection(List<Page> pages) {
@@ -23,7 +25,7 @@ public class PageContent {
         return new PageContent(null, size, pages);
     }
 
-    private PageContent(Long id, Integer size, List<Page> pages) {
+    private PageContent(UUID id, Integer size, List<Page> pages) {
         this.id = id;
         this.size = size;
         this.pages = pages;

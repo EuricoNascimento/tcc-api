@@ -72,7 +72,7 @@ public class CourseRepositoryAdapter implements CourseRepository {
     @Override
     public Optional<WorkMaterial> findOneMaterial(Course course, String materialId) {
         var workMaterial = db.findOneMaterial(course, materialId);
-        if(workMaterial.isEmpty())
+        if(workMaterial.isEmpty() || workMaterial.get().getMaterials().isEmpty())
             return http.findOneMaterial(course, materialId);
         return workMaterial;
     }

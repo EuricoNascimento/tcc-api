@@ -1,22 +1,21 @@
 package com.github.edulook.look.core.model;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
+
+import java.util.UUID;
 
 @Entity
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-@Getter
+@Data
 public class Page {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    private UUID id;
     private Integer page;
+    @Column(columnDefinition = "TEXT")
     private String content;
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     private PageContent pageContent;
 }

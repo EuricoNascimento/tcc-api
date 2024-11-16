@@ -31,7 +31,7 @@ public class Material {
     private String originLink;
 
     private String previewLink;
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL)
     private PageContent content;
     @Embedded
     private Option option;

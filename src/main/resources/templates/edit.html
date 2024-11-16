@@ -67,10 +67,10 @@
                     <div class="pdf-range" v-if="item.content">
                         <label class="pdf-item-range">Selecione as paginas a serem extraidas do PDF:</label>
                         <div class="pdf-range-inputs">
-                            <input type="number" min="0" :max="item.option.range.end" :value="item.option.range.start "
+                            <input type="number" min="0" :value="item.option.range.startPosition "
                                    @input="event => handleChangeStart(item, event)" class="input-pdf-range" />
                             <p>a</p>
-                            <input type="number" :value="item.option.range.end"
+                            <input type="number" :value="item.option.range.endPosition"
                                    @input="event => handleChangeEnd(item, event)" class="input-pdf-range" min="0" />
                         </div>
                         <div class="carousel" v-slot={currentIndex}>
@@ -96,12 +96,12 @@
                     <div class="pdf-range" v-else>
                         <label class="pdf-item-range">Selecione as paginas a serem extraidas do PDF:</label>
                         <div class="pdf-range-inputs">
-                            <input type="number" min="0" :max="item.option.range.end" :value="item.option.range.start"
-                                   @input="event => item.option.range.start = event.target.value"
+                            <input type="number" min="0" :value="item.option.range.startPosition"
+                                   @input="event => item.option.range.startPosition = event.target.value"
                                    class="input-pdf-range" />
                             <p>a</p>
-                            <input type="number" class="input-pdf-range" min="0" :value="item.option.range.end"
-                                   @input="event => item.option.range.end = event.target.value" />
+                            <input type="number" class="input-pdf-range" min="0" :value="item.option.range.endPosition"
+                                   @input="event => item.option.range.endPosition = event.target.value" />
                         </div>
                         <label class="message">Após a submissão das alterações, volte novamente mais tarde para
                             verificar as paginas extraidas no formulário</label>
@@ -207,27 +207,29 @@
         methods: {
 
             handleChangeStart(item, event) {
-                if (confirm("Deseja realmente adicionar um novo valor? Será necessario começar a extração novamente.")) {
-                    item.option.range.start = event.target.value;
+            debugger
+                item.option.range.startPosition = event.target.value;
+                /*if (confirm("Deseja realmente adicionar um novo valor? Será necessario começar a extração novamente.")) {
                 } else {
-                    if ((item.option.range.start - 1) < 0) {
-                        this.item.option.range.start = 0;
+                    if ((item.option.range.startPosition - 1) < 0) {
+                        this.item.option.range.startPosition = 0;
                     } else {
-                        item.option.range.start = (item.option.range.start - 1)
+                        item.option.range.startPosition = (item.option.range.startPosition - 1)
                     }
-                }
+                }*/
             },
 
             handleChangeEnd(item, event) {
-                if (confirm("Deseja realmente adicionar um novo valor? Será necessario começar a extração novamente.")) {
-                    item.option.range.end = event.target.value;
-                } else {
-                    if ((item.option.range.end - 1) < 0) {
-                        this.item.option.range.end = 0;
+            debugger
+                //if (confirm("Deseja realmente adicionar um novo valor? Será necessario começar a extração novamente.")) {
+                    item.option.range.endPosition = event.target.value;
+                /*} else {
+                    if ((item.option.range.endPosition - 1) < 0) {
+                        this.item.option.range.endPosition = 0;
                     } else {
-                        item.option.range.end = (item.option.range.end - 1)
+                        item.option.range.endPosition = (item.option.range.endPosition - 1)
                     }
-                }
+                }*/
             },
 
             isPageInRange(index, item) {
@@ -364,6 +366,7 @@
             async putCourseMaterial() {
                 const url = `/v1/courses/${this.course.id}/materials/${this.course.materialId}/edit`;
                 let materialBody = JSON.stringify(this.material)
+                debugger
                 try {
                     const response = await fetch(url, {
                         method: 'PUT',

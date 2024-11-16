@@ -132,7 +132,6 @@ public class CourseService {
         });
     }
 
-    @Cacheable("findOneCourseMaterial")
     public Optional<WorkMaterial> findOneCourseMaterial(String courseId, String materialId) {
         var course = Course.builder()
             .id(courseId)

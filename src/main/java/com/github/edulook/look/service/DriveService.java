@@ -10,6 +10,8 @@ import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Optional;
 import java.util.regex.Pattern;
@@ -38,6 +40,11 @@ public class DriveService {
             var pathResolved = Paths.get(pathToSave + "/" + originFile.getName())
                 .normalize()
                 .toAbsolutePath();
+
+            Path path = Paths.get(pathToSave).toAbsolutePath();
+            if (!Files.exists(path)){
+                Files.createDirectories(path);
+            }
 
             var saveTo = pathResolved.toFile();
 
